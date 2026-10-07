@@ -10,7 +10,7 @@
 
 .lineReveal[data-ready] .word {
   --kf: motion-mask-up;
-  animation: var(--kf) var(--dur-reveal) var(--ease-out) calc(120ms + var(--line, 0) * var(--stagger-line)) both;
+  animation: var(--kf) var(--dur-reveal) var(--ease-out) calc(120ms + var(--line, 0) * var(--stagger-line)) backwards;
 }
 
 /* ---------- Marquee ---------- */

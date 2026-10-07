@@ -100,8 +100,11 @@ html.js [data-reveal]:not([data-revealed]) {
   opacity: 0;
 }
 
+/* Le animazioni con clip-path usano fill "backwards": a fine corsa il clip-path sparisce.
+ * Con "both" l'ultimo scatto di steps() restava congelato e Safari/Chrome a volte
+ * mostravano l'elemento tagliato di 1/6 a destra. */
 [data-reveal="pixel"][data-revealed] {
-  animation: motion-pixel-in var(--dur-reveal) var(--ease-pixel) both;
+  animation: motion-pixel-in var(--dur-reveal) var(--ease-pixel) backwards;
 }
 
 [data-reveal="rise"][data-revealed] {

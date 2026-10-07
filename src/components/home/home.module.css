@@ -51,7 +51,7 @@
 /* Le etichette compaiono in sequenza, a scatti. */
 .tagIn {
   --kf: motion-pixel-in;
-  animation: var(--kf) var(--dur-slow) var(--ease-pixel) calc(80ms + var(--i, 0) * 160ms) both;
+  animation: var(--kf) var(--dur-slow) var(--ease-pixel) calc(80ms + var(--i, 0) * 160ms) backwards;
 }
 
 .heroMedia {

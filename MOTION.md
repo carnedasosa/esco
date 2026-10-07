@@ -140,6 +140,9 @@ normale e l'emblema gira finché la nuova pagina non arriva.
   crea solo per le immagini in vista ed è a 1/3 della risoluzione; il JS di motion è
   ~4,5 KB gzip; il follower del poster si muove in `requestAnimationFrame` con `translate3d`.
 - **Mobile**: niente miniatura che segue il cursore, marquee più lento (60 s), reveal da 300 ms.
+- **clip-path**: le animazioni che lo usano vanno con fill-mode `backwards`, mai `both`:
+  il clip-path finale resterebbe applicato e alcuni browser mostrano l'ultimo step
+  di `steps()` tagliato (successo ai tag dell'hero su iPhone e Mac).
 - **CSS Modules**: i keyframe sono globali (`motion.css`). Nei moduli il nome va passato
   tramite variabile, altrimenti il compilatore lo rende locale:
   `--kf: motion-rise; animation: var(--kf) var(--dur-slow) var(--ease-out) both;`
