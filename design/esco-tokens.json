@@ -1,0 +1,82 @@
+{
+  "name": "ESCO",
+  "version": 1,
+  "color": {
+    "themes": [
+      { "id": "light", "name": "Paper" },
+      { "id": "dark", "name": "Night" }
+    ],
+    "tokens": [
+      { "name": "ground", "value": { "light": "#ffffff", "dark": "#000000" }, "usage": "Page and poster background. White posters (schedules, how-it-works) use Paper; black statement posts use Night." },
+      { "name": "ink", "value": { "light": "#000000", "dark": "#ffffff" }, "usage": "All text, outlines of tags and boxes, and the logo, on ground. 21:1 in both themes." },
+      { "name": "band", "value": { "light": "{ink}", "dark": "{ink}" }, "usage": "Solid inverted fill: a reversed tag, a full-bleed bar. Always the opposite of ground." },
+      { "name": "on-band", "value": { "light": "{ground}", "dark": "{ground}" }, "usage": "Text and logo on band. 21:1 in both themes." },
+      { "name": "alu-highlight", "value": "#b1b1b1", "usage": "Brushed-aluminium plate, light area (sampled from the Opening Act and It's All About Music posters). Same in both themes. Text on it is on-alu (10.6:1)." },
+      { "name": "alu-mid", "value": "#808080", "usage": "Brushed-aluminium plate, mid tone. Same in both themes. Text on it is on-alu (5.3:1)." },
+      { "name": "alu-shadow", "value": "#535353", "usage": "Brushed-aluminium plate, shadow falloff. Same in both themes. Never put text on it: on-alu reaches only 2.8:1." },
+      { "name": "on-alu", "value": "#000000", "usage": "Text and logo on alu-highlight and alu-mid, in both themes. On metal the ink is always black." }
+    ]
+  },
+  "type": {
+    "fonts": [
+      { "family": "Redaction 35", "file": "fonts/redaction-35-latin-400-normal.woff2", "weight": "400", "style": "normal" },
+      { "family": "Redaction 10", "file": "fonts/redaction-10-latin-400-normal.woff2", "weight": "400", "style": "normal" }
+    ],
+    "families": {
+      "display": "\"Redaction 35\", \"Times New Roman\", serif",
+      "serif": "\"Redaction 10\", \"Times New Roman\", serif",
+      "sans": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Display",
+        "family": "display",
+        "styles": [
+          { "name": "poster", "fontSize": "96px", "lineHeight": 0.95, "fontWeight": 400, "letterSpacing": "-0.03em", "sample": "OPENING ACT", "usage": "One shout per poster. Uppercase, centred or flush to the poster margin." },
+          { "name": "headline", "fontSize": "56px", "lineHeight": 1, "fontWeight": 400, "letterSpacing": "-0.03em", "sample": "SABATO & DOMENICA", "usage": "Section heads on posters and pages. Uppercase." },
+          { "name": "title", "fontSize": "32px", "lineHeight": 1.05, "fontWeight": 400, "letterSpacing": "-0.02em", "sample": "E VADO DA ESCO®", "usage": "Slogans inside the slogan box, short stacked statements, footer lines. Uppercase." },
+          { "name": "numerals", "fontSize": "40px", "lineHeight": 1, "fontWeight": 400, "letterSpacing": "-0.02em", "sample": "18:00 — 01:00", "usage": "Opening hours, dates (02.04), times (19:00). Separate ranges with an em dash and spaces." }
+        ]
+      },
+      {
+        "name": "Serif text",
+        "family": "serif",
+        "styles": [
+          { "name": "statement", "fontSize": "22px", "lineHeight": 1.15, "fontWeight": 400, "letterSpacing": "-0.01em", "sample": "IN PIEDI, SENZA TAVOLI", "usage": "Smaller uppercase serif lines under a headline, where Redaction 35 would break up at small sizes." }
+        ]
+      },
+      {
+        "name": "Sans",
+        "family": "sans",
+        "styles": [
+          { "name": "label", "fontSize": "15px", "lineHeight": 1, "fontWeight": 400, "letterSpacing": "0em", "sample": "ESCO & BRILLO", "usage": "Tags, sub-lines (VINYL & FRIENDS, WAKE 'N' BAKE), addresses. Always uppercase." },
+          { "name": "body", "fontSize": "17px", "lineHeight": 1.35, "fontWeight": 400, "sample": "È un bar in cui la proposta si integra con un'atmosfera musicale strutturata.", "usage": "Running sentences in sentence case. Bold (700) only for the one fact that matters: servizio all'interno, 6 PX." },
+          { "name": "caption", "fontSize": "12px", "lineHeight": 1.3, "fontWeight": 400, "sample": "SABATO E DOMENICA DALLE 11:00 ALLE 15:00", "usage": "Fine print on windows and posters. Uppercase." }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      { "name": "space-1", "value": "4px", "usage": "Gap between ESCO and the ® mark; tag inner offsets." },
+      { "name": "space-2", "value": "8px", "usage": "Tag vertical padding; gap between a headline and its sans sub-line." },
+      { "name": "space-3", "value": "12px", "usage": "Tag horizontal padding; time badge padding." },
+      { "name": "space-4", "value": "16px", "usage": "Slogan box padding; gap between stacked display lines and their sub-line." },
+      { "name": "space-6", "value": "24px", "usage": "Gap between tags in a row." },
+      { "name": "space-10", "value": "40px", "usage": "Space between information blocks (hours, then weekend, then after 22:30)." },
+      { "name": "space-16", "value": "64px", "usage": "Poster outer margin at 1080 width (about 7% of the width, as in the posters)." }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      { "name": "radius-none", "value": "0px", "usage": "Time badge: square corners, as on the Wake 'n' Bake post." },
+      { "name": "radius-tag", "value": "6px", "usage": "Tags (ESCO BRILLO / ESCO & BRILLO / ESCO DI CASA). About a fifth of the tag height." },
+      { "name": "radius-box", "value": "14px", "usage": "Slogan box (E VADO DA ESCO®, HIGH-QUALITY MUSIC ONLY @ESCO®). About a fifth of the box height." }
+    ]
+  },
+  "stroke": {
+    "tokens": [
+      { "name": "stroke-outline", "value": "1.5px", "usage": "Outline of tags, slogan box and time badge, in ink. Never thicker than the strokes of the sans text inside." }
+    ]
+  }
+}

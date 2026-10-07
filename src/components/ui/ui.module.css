@@ -1,0 +1,127 @@
+/* ---------- Button ---------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 14px 20px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-tag);
+  font: inherit;
+  font-size: 15px;
+  line-height: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+/* Pieno: inchiostro su fondo (bianco su nero nelle fasce Night, nero su bianco su Paper). */
+.solid {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.solid:hover {
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.outline {
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.outline:hover {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.small {
+  min-height: 44px;
+  padding: 13px 16px;
+  font-size: 14px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+/* ---------- Tag ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-tag);
+  font-size: 13px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tagInverted {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.tagLarge {
+  font-size: 15px;
+}
+
+/* ---------- LabeledSection: etichetta a sinistra + contenuto ---------- */
+
+.section {
+  padding: var(--section-y) var(--gutter);
+}
+
+.sectionInner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 48px;
+}
+
+.sectionLabel {
+  flex: 0 0 var(--label-col);
+}
+
+.sectionBody {
+  flex: 999 1 640px;
+  min-width: 0;
+}
+
+/* ---------- PageHero: titolo gigante delle pagine interne ---------- */
+
+.pageHero {
+  padding: 96px var(--gutter) 64px;
+}
+
+.pageHeroInner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 48px;
+}
+
+.pageHeroInner p {
+  max-width: 22em;
+}
+
+/* ---------- Registered mark ---------- */
+
+.reg {
+  font-size: 0.42em;
+  vertical-align: 0.95em;
+  margin-left: 0.04em;
+  letter-spacing: 0;
+}

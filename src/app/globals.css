@@ -1,49 +1,226 @@
+/*
+ * ESCO — token e stili di base.
+ * Valori presi dal design system ESCO (design/esco-tokens.json).
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colore: Paper (light) è il default della pagina, Night per le fasce nere. */
+  --ground: #ffffff;
+  --ink: #000000;
+  --alu-highlight: #b1b1b1;
+  --alu-mid: #808080;
+  --alu-shadow: #535353;
+
+  /* Font (le variabili --font-redaction-* arrivano da next/font in layout.tsx) */
+  --font-display: var(--font-redaction-35), "Times New Roman", serif;
+  --font-serif: var(--font-redaction-10), "Times New Roman", serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Spaziatura */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-10: 40px;
+  --space-16: 64px;
+
+  /* Layout */
+  --gutter: 40px;
+  --content-max: 1360px;
+  --label-col: 200px;
+  --section-y: 120px;
+
+  /* Forme */
+  --radius-tag: 6px;
+  --radius-box: 14px;
+  --stroke: 1.5px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Le sezioni "Night" invertono ground e ink: i componenti usano solo le variabili. */
+.theme-night {
+  --ground: #000000;
+  --ink: #ffffff;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.theme-paper {
+  --ground: #ffffff;
+  --ink: #000000;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --gutter: 20px;
+    --section-y: 80px;
   }
 }
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
   margin: 0;
+  background: #000000;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  background: #ffffff;
+  color: #000000;
+}
+
+h1,
+h2,
+h3,
+p,
+blockquote {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 
 a {
   color: inherit;
+}
+
+a:hover {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Tipografia (stili del design system) ---------- */
+
+.t-poster,
+.t-headline,
+.t-title,
+.t-numerals {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.t-poster {
+  font-size: clamp(56px, 7.8vw, 112px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.t-giant {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(72px, 10vw, 144px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.t-headline {
+  font-size: clamp(36px, 3.9vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.t-title {
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.t-numerals {
+  font-size: clamp(28px, 2.8vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.t-statement {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.t-label {
+  font-size: 15px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.t-body {
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.t-caption {
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.t-eyebrow {
+  font-size: 13px;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: #ffffff;
+  color: #000000;
+  border-radius: var(--radius-tag);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
 }
