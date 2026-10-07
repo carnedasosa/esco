@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { submitReservation } from "@/app/prenota/actions";
+import { FlipNumber } from "@/components/motion/FlipNumber";
 import { Button } from "@/components/ui/Button";
 import { booking } from "@/content/site";
 import type { ReservationField, ReservationState, ReservationType } from "@/lib/reservation";
@@ -23,7 +24,7 @@ export function BookingForm({ minDate }: { minDate: string }) {
   if (state.status === "success" && state !== dismissed) {
     return (
       <div className={styles.sent} role="status">
-        <p className="t-headline">Richiesta inviata</p>
+        <p className={`${styles.stamp} t-headline`}>Richiesta inviata</p>
         <p className="t-body">Ti ricontatteremo per confermare.</p>
         <Button variant="outline" small onClick={() => setDismissed(state)}>
           Nuova richiesta
@@ -114,7 +115,7 @@ export function BookingForm({ minDate }: { minDate: string }) {
           {errorText("ora")}
         </label>
         <label className={styles.label}>
-          Persone · max {max}
+          Persone · max <FlipNumber value={max} />
           <input
             type="number"
             min={1}

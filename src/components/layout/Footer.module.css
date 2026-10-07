@@ -36,7 +36,6 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  border-top: var(--stroke) solid var(--ink);
 }
 
 .col {
@@ -60,10 +59,8 @@
   color: var(--ink);
 }
 
-a.big:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 4px;
+a.big {
+  align-self: flex-start;
 }
 
 .numerals {
@@ -77,17 +74,12 @@ a.big:hover {
 }
 
 .navLink {
+  align-self: flex-start;
   color: var(--ink);
   font-size: 15px;
   line-height: 1.9;
   text-transform: uppercase;
   text-decoration: none;
-}
-
-.navLink:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 4px;
 }
 
 .bottom {
@@ -96,7 +88,6 @@ a.big:hover {
   justify-content: space-between;
   align-items: center;
   gap: 16px 32px;
-  border-top: var(--stroke) solid var(--ink);
   padding-top: 24px;
 }
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { connection } from "next/server";
-import { Suspense } from "react";
+import { type CSSProperties, Suspense } from "react";
 import vetrina from "@/assets/images/vetrina.jpg";
+import { DitherImage } from "@/components/motion/DitherImage";
 import { BookingForm } from "@/components/prenota/BookingForm";
 import styles from "@/components/prenota/prenota.module.css";
 import { PageHero } from "@/components/ui/Section";
@@ -32,8 +32,10 @@ export default function PrenotaPage() {
       <section className={`${styles.section} theme-paper`}>
         <div className={styles.inner}>
           <div className={styles.rules}>
-            <p className="t-eyebrow">Come funziona</p>
-            <div className={styles.rule}>
+            <p className="t-eyebrow" data-reveal="pixel">
+              Come funziona
+            </p>
+            <div className={`${styles.rule} hairline-top`} data-reveal="rise" style={{ "--i": 0 } as CSSProperties}>
               <div className={styles.ruleHead}>
                 <span className={styles.ruleTitle}>{booking.tavolo.label}</span>
                 <span className={styles.ruleMax}>
@@ -41,7 +43,7 @@ export default function PrenotaPage() {
                 </span>
               </div>
             </div>
-            <div className={styles.rule}>
+            <div className={`${styles.rule} hairline-top`} data-reveal="rise" style={{ "--i": 1 } as CSSProperties}>
               <div className={styles.ruleHead}>
                 <span className={styles.ruleTitle}>{booking.birthday.label}</span>
                 <span className={styles.ruleMax}>
@@ -50,7 +52,7 @@ export default function PrenotaPage() {
               </div>
               <span className="t-statement">{booking.birthday.note}</span>
             </div>
-            <div className={styles.rule}>
+            <div className={`${styles.rule} hairline-top hairline-bottom`} data-reveal="rise" style={{ "--i": 2 } as CSSProperties}>
               <span className={styles.ruleTitle}>Dopo le 22:30</span>
               <span className="t-body">
                 Preferiamo concentrare il <b>servizio all’interno</b>.
@@ -68,11 +70,11 @@ export default function PrenotaPage() {
       </section>
 
       <section aria-label="Il locale" className={`${styles.photo} theme-night`}>
-        <Image
+        <DitherImage
           src={vetrina}
+          focus={[0.5, 0.4]}
           alt="La vetrina di ESCO in via Giuseppe Palmieri con la panca in alluminio"
           fill
-          placeholder="blur"
           sizes="100vw"
         />
       </section>

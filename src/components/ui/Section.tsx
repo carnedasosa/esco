@@ -22,7 +22,9 @@ export function LabeledSection({
   return (
     <section className={[styles.section, `theme-${theme}`, className].filter(Boolean).join(" ")} {...props}>
       <div className={styles.sectionInner}>
-        <p className={`${styles.sectionLabel} t-eyebrow`}>{label}</p>
+        <p className={`${styles.sectionLabel} t-eyebrow`} data-reveal="pixel">
+          {label}
+        </p>
         <div className={[styles.sectionBody, bodyClassName].filter(Boolean).join(" ")}>{children}</div>
       </div>
     </section>

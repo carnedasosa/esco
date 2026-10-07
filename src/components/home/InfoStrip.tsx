@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
+import { OpenStatus } from "@/components/motion/OpenStatus";
 import { hours, site } from "@/content/site";
 import styles from "./home.module.css";
 
-const items = [
+const items: { label: string; value: string; upper?: boolean; extra?: ReactNode }[] = [
   { label: "Dove", value: `${site.address.short} · ${site.address.city}`, upper: true },
-  { label: hours.daily.label, value: hours.daily.time },
+  { label: hours.daily.label, value: hours.daily.time, extra: <OpenStatus /> },
   { label: `${hours.weekend.shortLabel} · ${hours.weekend.note}`, value: hours.weekend.time },
   { label: "Walk-in", value: "Sempre benvenuti", upper: true },
 ];
@@ -18,6 +20,7 @@ export function InfoStrip() {
             <span className={[styles.stripValue, item.upper && styles.upper].filter(Boolean).join(" ")}>
               {item.value}
             </span>
+            {item.extra}
           </div>
         ))}
       </div>

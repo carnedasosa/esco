@@ -42,10 +42,16 @@
 }
 
 .todayLink {
-  padding: 15px 0;
+  margin: 15px 0;
   font-size: 15px;
   line-height: 16px;
   text-transform: uppercase;
+}
+
+/* Le etichette compaiono in sequenza, a scatti. */
+.tagIn {
+  --kf: motion-pixel-in;
+  animation: var(--kf) var(--dur-slow) var(--ease-pixel) calc(80ms + var(--i, 0) * 160ms) both;
 }
 
 .heroMedia {
@@ -232,11 +238,6 @@
   align-items: baseline;
   gap: 8px 32px;
   padding: 28px 0;
-  border-top: var(--stroke) solid var(--ink);
-}
-
-.hoursRow:last-child {
-  border-bottom: var(--stroke) solid var(--ink);
 }
 
 .hoursDay {
@@ -332,19 +333,33 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 32px;
-  padding: 24px 0;
-  border-top: var(--stroke) solid var(--ink);
+  /* 12px di respiro laterale per quando la riga si inverte; il margine negativo la riallinea. */
+  margin: 0 -12px;
+  padding: 24px 12px;
   color: var(--ink);
   text-decoration: none;
-  transition: padding-left 0.2s ease;
 }
 
-.track:last-child {
-  border-bottom: var(--stroke) solid var(--ink);
+.track::before,
+.track::after {
+  left: 12px;
+  right: 12px;
 }
 
+/* Hover: la riga si inverte (istantaneo) e la freccia avanza di 8px. */
 .track:hover {
-  padding-left: 12px;
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.track:hover .arrow,
+.track:focus-visible .arrow {
+  transform: translateX(8px);
 }
 
 .trackDate {
@@ -374,8 +389,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .track {
+  .arrow,
+  .tagIn {
     transition: none;
+    animation: none;
   }
 }
 

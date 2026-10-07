@@ -16,7 +16,7 @@ export function Footer() {
           <ButtonLink href="/prenota">Prenota un tavolo</ButtonLink>
         </div>
 
-        <div className={styles.grid}>
+        <div className={`${styles.grid} hairline-top`} data-reveal="line">
           <div className={styles.col}>
             <p className="t-caption">Dove</p>
             <p className={styles.big}>{site.address.street}</p>
@@ -31,22 +31,25 @@ export function Footer() {
           </div>
           <div className={styles.col}>
             <p className="t-caption">Seguici</p>
-            <a href={site.instagram.url} className={styles.big} target="_blank" rel="noopener noreferrer">
+            <a href={site.instagram.url} className={`${styles.big} u-link`} target="_blank" rel="noopener noreferrer">
               {site.instagram.handle}
             </a>
           </div>
           <nav aria-label="Pagine" className={styles.col}>
             <p className="t-caption">Pagine</p>
-            <Link href="/#locale" className={styles.navLink}>Il locale</Link>
-            <Link href="/#orari" className={styles.navLink}>Orari</Link>
-            <Link href="/eventi" className={styles.navLink}>Eventi</Link>
-            <Link href="/prenota" className={styles.navLink}>Prenota</Link>
+            <Link href="/#locale" className={`${styles.navLink} u-link`}>Il locale</Link>
+            <Link href="/#orari" className={`${styles.navLink} u-link`}>Orari</Link>
+            <Link href="/eventi" className={`${styles.navLink} u-link`}>Eventi</Link>
+            <Link href="/prenota" className={`${styles.navLink} u-link`}>Prenota</Link>
           </nav>
         </div>
 
-        <div className={styles.bottom}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- SVG statico */}
-          <img src="/brand/esco-logo.svg" alt="ESCO" width={120} height={78} />
+        <div className={`${styles.bottom} hairline-top`} data-reveal="line">
+          {/* L'emblema gira come un disco a 33⅓ giri all'hover. */}
+          <span className="vinyl-spin">
+            {/* eslint-disable-next-line @next/next/no-img-element -- SVG statico */}
+            <img src="/brand/esco-logo.svg" alt="ESCO" width={120} height={78} className="vinyl" />
+          </span>
           <p className="t-caption">{site.footerLine}</p>
         </div>
       </div>

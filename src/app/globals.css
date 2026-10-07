@@ -35,6 +35,23 @@
   --radius-tag: 6px;
   --radius-box: 14px;
   --stroke: 1.5px;
+
+  /* Motion (pattern e regole in src/styles/motion.css e MOTION.md) */
+  --dur-fast: 120ms; /* hover, bottoni */
+  --dur-base: 240ms; /* piccoli cambi di stato */
+  --dur-slow: 480ms; /* reveal di testo e righe */
+  --dur-scene: 900ms; /* ingresso hero, transizioni di pagina */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-pixel: steps(6, end); /* effetti "pixel", coerenti con Redaction */
+  --dur-reveal: var(--dur-slow);
+  --stagger-line: 80ms;
+  --stagger-row: 60ms;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --dur-reveal: 300ms;
+  }
 }
 
 /* Le sezioni "Night" invertono ground e ink: i componenti usano solo le variabili. */

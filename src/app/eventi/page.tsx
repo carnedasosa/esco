@@ -20,13 +20,13 @@ export default async function EventiPage() {
 
       <section aria-labelledby="prossimi" className={`${styles.upcoming} theme-paper`}>
         <div className={styles.upcomingInner}>
-          <p id="prossimi" className={`${styles.heading} t-label`}>
+          <p id="prossimi" className={`${styles.heading} t-label`} data-reveal="pixel">
             Prossimi
           </p>
           {upcoming.length > 0 ? (
             <div>
-              {upcoming.map((event) => (
-                <UpcomingEvent key={event.slug} event={event} />
+              {upcoming.map((event, i) => (
+                <UpcomingEvent key={event.slug} event={event} index={i} last={i === upcoming.length - 1} />
               ))}
             </div>
           ) : (
@@ -38,8 +38,8 @@ export default async function EventiPage() {
       {past.length > 0 && (
         <LabeledSection aria-label="Archivio" label="Archivio" theme="night" style={{ paddingTop: 96 }}>
           <div>
-            {past.map((event) => (
-              <ArchivedEvent key={event.slug} event={event} />
+            {past.map((event, i) => (
+              <ArchivedEvent key={event.slug} event={event} index={i} last={i === past.length - 1} />
             ))}
           </div>
         </LabeledSection>

@@ -36,16 +36,15 @@
   font-size: 14px;
   line-height: 16px;
   text-transform: uppercase;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0 1.5px;
-  background-position: 0 calc(100% - 10px);
-  background-repeat: no-repeat;
-  transition: background-size 0.2s ease;
 }
 
-.link:hover,
-.link[aria-current="page"] {
-  background-size: 100% 1.5px;
+.nav .link::after {
+  bottom: 12px;
+}
+
+/* Prima dello scroll l'emblema non gira all'hover (gira solo durante il cambio pagina). */
+.header:not([data-scrolled]) .logo:hover :global(.vinyl) {
+  animation: none;
 }
 
 .menuToggle {
@@ -92,7 +91,10 @@
     padding: 16px 0;
     border-top: var(--stroke) solid var(--ink);
     font-size: 16px;
-    background-image: none;
+  }
+
+  .nav .link::after {
+    display: none;
   }
 
   .nav > :last-child {

@@ -14,9 +14,10 @@
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
+  /* Inversione bianco/nero quasi istantanea, nessuna ombra. */
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--dur-fast) linear,
+    color var(--dur-fast) linear;
 }
 
 /* Pieno: inchiostro su fondo (bianco su nero nelle fasce Night, nero su bianco su Paper). */
@@ -63,6 +64,19 @@
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) linear,
+    color var(--dur-fast) linear;
+}
+
+.tag:hover {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.tagInverted:hover {
+  background: var(--ground);
+  color: var(--ink);
 }
 
 .tagInverted {

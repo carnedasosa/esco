@@ -19,11 +19,6 @@
   align-items: center;
   gap: 24px 48px;
   padding: 40px 0;
-  border-top: var(--stroke) solid var(--ink);
-}
-
-.event:last-child {
-  border-bottom: var(--stroke) solid var(--ink);
 }
 
 .when {
@@ -93,19 +88,12 @@
   align-items: center;
   gap: 24px 40px;
   padding: 32px 0;
-  border-top: var(--stroke) solid var(--ink);
-}
-
-.archive:last-child {
-  border-bottom: var(--stroke) solid var(--ink);
 }
 
 .poster {
   flex: 0 0 160px;
   width: 160px;
-  height: auto;
   aspect-ratio: 4 / 5;
-  object-fit: cover;
 }
 
 .archiveDate {

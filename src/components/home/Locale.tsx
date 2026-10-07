@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { DitherImage } from "@/components/motion/DitherImage";
 import pareteVinili from "@/assets/images/parete-vinili.jpg";
 import consolle from "@/assets/images/consolle.jpg";
 import styles from "./home.module.css";
@@ -8,7 +8,9 @@ export function Locale() {
     <section id="locale" className={`${styles.locale} theme-paper`}>
       <div className={styles.localeInner}>
         <div className={styles.split}>
-          <p className={`${styles.splitLabel} t-eyebrow`}>A1 — Il locale</p>
+          <p className={`${styles.splitLabel} t-eyebrow`} data-reveal="pixel">
+            A1 — Il locale
+          </p>
           <div className={styles.splitBody}>
             <h2 className={styles.localeTitle}>
               Miscelazione e selezione musicale si incontrano per creare un ambiente coerente e curato.
@@ -25,21 +27,19 @@ export function Locale() {
 
         <div className={styles.photos}>
           <div className={styles.photoMain}>
-            <Image
+            <DitherImage
               src={pareteVinili}
               alt="La parete di vinili sotto il soffitto in sughero"
               fill
-              placeholder="blur"
               sizes="(max-width: 900px) 100vw, 60vw"
             />
           </div>
           <figure className={styles.photoSide} style={{ margin: 0 }}>
             <div className={styles.photoSideImg}>
-              <Image
+              <DitherImage
                 src={consolle}
                 alt="Giradischi e mixer rotativo in consolle"
                 fill
-                placeholder="blur"
                 sizes="(max-width: 900px) 100vw, 38vw"
               />
             </div>

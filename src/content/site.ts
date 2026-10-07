@@ -33,6 +33,13 @@ export const hours = {
   },
 } as const;
 
+/** Orari in forma calcolabile, per lo stato "aperto ora" (ora di Bari). */
+export const schedule = {
+  timeZone: "Europe/Rome",
+  evening: { open: "18:00", close: "01:00" }, // tutti i giorni, chiude dopo mezzanotte
+  weekend: { days: [6, 0], open: "10:30", close: "15:00" }, // sabato e domenica
+} as const;
+
 export const booking = {
   tavolo: { label: "Tavolo", max: 6 },
   birthday: { label: "Birthday", max: 20, note: "In piedi, senza tavoli · Fiches pack disponibili" },

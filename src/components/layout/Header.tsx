@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { nav } from "@/content/site";
 import styles from "./Header.module.css";
@@ -10,12 +10,23 @@ import styles from "./Header.module.css";
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+
+  // data-scrolled abilita la rotazione dell'emblema all'hover (vedi MOTION.md).
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const update = () => header.toggleAttribute("data-scrolled", window.scrollY > 40);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   return (
-    <header className={`${styles.header} theme-night`}>
-      <Link href="/" aria-label="ESCO, torna alla home" className={styles.logo}>
+    <header ref={headerRef} className={`${styles.header} theme-night`}>
+      <Link href="/" aria-label="ESCO, torna alla home" className={`${styles.logo} vinyl-spin`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- SVG statico, nessuna ottimizzazione necessaria */}
-        <img src="/brand/esco-logo.svg" alt="ESCO" width={80} height={52} />
+        <img src="/brand/esco-logo.svg" alt="ESCO" width={80} height={52} className="vinyl" />
       </Link>
 
       <button
@@ -33,7 +44,7 @@ export function Header() {
           <Link
             key={item.href}
             href={item.href}
-            className={styles.link}
+            className={`${styles.link} u-link`}
             aria-current={pathname === item.href ? "page" : undefined}
             onClick={() => setOpen(false)}
           >

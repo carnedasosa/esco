@@ -1,11 +1,20 @@
-import Image from "next/image";
+import type { CSSProperties } from "react";
+import { DitherImage } from "@/components/motion/DitherImage";
 import { Tag } from "@/components/ui/Tag";
 import { type EscoEvent, formatDate } from "@/content/events";
 import styles from "./eventi.module.css";
 
-export function UpcomingEvent({ event }: { event: EscoEvent }) {
+type RowProps = { event: EscoEvent; index: number; last: boolean };
+
+const rowAttrs = (base: string, index: number, last: boolean) => ({
+  className: [base, "hairline-top", last && "hairline-bottom"].filter(Boolean).join(" "),
+  "data-reveal": "rise",
+  style: { "--i": index } as CSSProperties,
+});
+
+export function UpcomingEvent({ event, index, last }: RowProps) {
   return (
-    <article id={event.slug} className={styles.event}>
+    <article id={event.slug} {...rowAttrs(styles.event, index, last)}>
       <div className={styles.when}>
         {event.date ? (
           <>
@@ -32,11 +41,16 @@ export function UpcomingEvent({ event }: { event: EscoEvent }) {
   );
 }
 
-export function ArchivedEvent({ event }: { event: EscoEvent }) {
+export function ArchivedEvent({ event, index, last }: RowProps) {
   return (
-    <article id={event.slug} className={styles.archive}>
+    <article id={event.slug} {...rowAttrs(styles.archive, index, last)}>
       {event.poster && (
-        <Image src={event.poster.src} alt={event.poster.alt} className={styles.poster} sizes="160px" placeholder="blur" />
+        <DitherImage
+          src={event.poster.src}
+          alt={event.poster.alt}
+          wrapperClassName={styles.poster}
+          sizes="160px"
+        />
       )}
       <p className={styles.archiveDate}>
         {event.date && formatDate(event.date, true)}

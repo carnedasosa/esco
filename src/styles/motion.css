@@ -1,0 +1,336 @@
+/*
+ * ESCO — motion.
+ * Il movimento di un giradischi: costante, preciso, mai rimbalzante.
+ * Si animano solo transform, opacity e clip-path. Token in globals.css, guida in MOTION.md.
+ *
+ * Gli stati "nascosti prima dell'animazione" valgono solo con `html.js`
+ * (classe aggiunta da uno script inline in layout.tsx): senza JS si vede tutto.
+ */
+
+/* ---------- Keyframes ---------- */
+
+@keyframes motion-mask-up {
+  from {
+    transform: translateY(100%);
+    clip-path: inset(-0.2em -0.1em 100% -0.1em);
+  }
+  to {
+    transform: none;
+    clip-path: inset(-0.2em -0.1em -0.2em -0.1em);
+  }
+}
+
+/* "Pixel": compare a scatti, come un carattere bitmap che si accende. */
+@keyframes motion-pixel-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes motion-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes motion-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes motion-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes motion-led {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes motion-stamp {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes motion-flip-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes motion-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Scroll reveal (RevealObserver imposta data-revealed) ----------
+ * data-reveal="pixel" etichette A1/A2/B1/B2
+ * data-reveal="rise"  righe di tabelle/tracklist, con --i per lo sfasamento
+ * data-reveal="line"  hairline: ::before (e ::after se c'è) si disegnano da sinistra
+ */
+
+html.js [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+
+[data-reveal="pixel"][data-revealed] {
+  animation: motion-pixel-in var(--dur-reveal) var(--ease-pixel) both;
+}
+
+[data-reveal="rise"][data-revealed] {
+  animation: motion-rise var(--dur-reveal) var(--ease-out) calc(var(--i, 0) * var(--stagger-row)) both;
+}
+
+/* Hairline: la riga porta la linea come pseudo-elemento al posto del border. */
+.hairline-top,
+.hairline-bottom {
+  position: relative;
+}
+
+.hairline-top::before,
+.hairline-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--stroke);
+  background: var(--ink);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.hairline-top::before {
+  top: 0;
+}
+
+.hairline-bottom::after {
+  bottom: 0;
+}
+
+html.js [data-reveal]:not([data-revealed]).hairline-top::before,
+html.js [data-reveal]:not([data-revealed]).hairline-bottom::after {
+  transform: scaleX(0);
+}
+
+[data-revealed].hairline-top::before,
+[data-revealed].hairline-bottom::after {
+  animation: motion-draw var(--dur-reveal) var(--ease-out) calc(var(--i, 0) * var(--stagger-row)) both;
+}
+
+/* Le righe con hairline sono visibili subito: si anima solo la linea, il contenuto sale. */
+html.js [data-reveal="line"]:not([data-revealed]) {
+  opacity: 1;
+}
+
+/* ---------- Sottolineatura che si disegna da sinistra ---------- */
+
+.u-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.u-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: var(--stroke);
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.u-link:hover::after,
+.u-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* Variante sempre sottolineata, che all'hover si ridisegna. */
+.u-link--on::after {
+  transform: scaleX(1);
+}
+
+.u-link--on:hover::after {
+  animation: motion-draw var(--dur-base) var(--ease-out);
+}
+
+/* ---------- Emblema come vinile: 33⅓ giri = 1,8 s a giro ---------- */
+
+.vinyl {
+  display: block;
+  transform-origin: 50% 50%;
+}
+
+.vinyl-spin:hover .vinyl,
+html[data-navigating] .vinyl-spin .vinyl {
+  animation: motion-spin 1.8s linear infinite;
+}
+
+/* ---------- LED "aperto ora" ---------- */
+
+.led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  background: currentColor;
+}
+
+.led[data-on="true"] {
+  animation: motion-led 1s steps(2, jump-none) infinite alternate;
+}
+
+.led[data-on="false"] {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--stroke) currentColor;
+}
+
+/* ---------- Immagini a retino (DitherImage) ---------- */
+
+.dither {
+  overflow: hidden;
+  background: #000000;
+}
+
+.dither canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* Prima del retino la foto è già lì (conta per l'LCP) ma resta coperta dal canvas nero. */
+html.js .dither:not([data-state]) canvas {
+  background: #000000;
+}
+
+.dither[data-state="done"] canvas {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ---------- Transizione tra pagine: tenda nera con l'emblema ----------
+ * Il vecchio snapshot si ritira verso l'alto (la tenda nera sale), resta un istante
+ * il logo bianco al centro, poi il nuovo snapshot si scopre dall'alto (la tenda scende).
+ */
+
+::view-transition {
+  background: #000000 url("/brand/esco-logo.svg") no-repeat center / 120px auto;
+}
+
+::view-transition-group(root) {
+  animation-duration: 1350ms;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: motion-curtain-up 600ms var(--ease-pixel) both;
+}
+
+::view-transition-new(root) {
+  animation: motion-curtain-down 600ms var(--ease-pixel) 750ms both;
+}
+
+@keyframes motion-curtain-up {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes motion-curtain-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ---------- Riduzione del movimento ----------
+ * Niente marquee, rotazioni, dither animato, reveal e tenda: tutto visibile subito.
+ * Le inversioni all'hover restano (non sono movimento).
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+  }
+
+  html.js [data-reveal]:not([data-revealed]).hairline-top::before,
+  html.js [data-reveal]:not([data-revealed]).hairline-bottom::after {
+    transform: none;
+  }
+
+  [data-reveal][data-revealed],
+  [data-revealed].hairline-top::before,
+  [data-revealed].hairline-bottom::after,
+  .vinyl-spin:hover .vinyl,
+  html[data-navigating] .vinyl-spin .vinyl,
+  .led[data-on="true"] {
+    animation: none;
+  }
+
+  .dither canvas {
+    display: none;
+  }
+
+  .u-link::after {
+    transition: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  ::view-transition {
+    background: none;
+  }
+}
+
+/* Durante la transizione di pagina le animazioni della nuova pagina aspettano:
+ * partono quando la tenda si è aperta (vedi src/lib/motion/page-transition.ts). */
+html[data-vt] *,
+html[data-vt] *::before,
+html[data-vt] *::after {
+  animation-play-state: paused !important;
+}
